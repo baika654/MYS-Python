@@ -1,0 +1,258 @@
+.navbar {
+    background-color: lightslategray;
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    padding: 8px 5px 8px 5px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.navbar-item {
+    font-variant: small-caps;
+    margin-left: 30px;
+}
+
+.body-content {
+    padding: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input[name=message] {
+    width: 80%;
+}
+
+.message_list th,td {
+    text-align: left;
+    padding-right: 15px;
+}
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+  }
+  
+  /* Provide sufficient contrast against white background */
+  a {
+    color: #0366d6;
+  }
+  
+  .btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+  }
+  
+  .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+  }
+  
+  /* Sticky footer styles
+  -------------------------------------------------- */
+  html {
+    font-size: 14px;
+  }
+  @media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  .border-top {
+    border-top: 1px solid #e5e5e5;
+  }
+  .border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  }
+  
+  button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+  }
+  
+  /* Sticky footer styles
+  -------------------------------------------------- */
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  
+  body {
+      /* Margin bottom by footer height */
+      margin-bottom: 60px;
+      background-image: url('/static/media/MYSLogoLong.png');
+      background-size: contain;
+      background-position: left;
+      background-repeat: no-repeat;
+      background-color: #f0f0f0;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+  }
+  .MYSPageBand {
+      width: 13%;
+      /*border: solid grey 0.5px;*/
+      float: left;
+      height: 100%;
+  }
+  .MYSPageMain {
+      width: 87%;
+      
+      float: left;
+      height: 100%;
+  }
+  .HelpPageBand {
+      width: 14%;
+      float: left;
+      height: 50vh;
+  }
+  
+  .MYSOutputWindow {
+      width: 100%;
+      background-color: #fff;
+      border: solid black 1px;
+      height: 60%;
+      overflow: auto;
+  }
+  .InputTextBox {
+      background-color: #fff;
+      border: solid black 1px;
+      height: 20px;
+      float: left;
+      display: block;
+      flex-grow: 1;
+      font-weight: 400;
+      margin-top: 20px;
+      overflow:hidden;
+  }
+  .KeepLeft {
+      float:left;
+      font: bold;
+      margin-top:20px;
+      padding-right: 10px;
+  }
+  
+  .TextBoxBlock {
+      display: inline-flex;
+      width: 100%;
+      font-weight: 600;
+      font-size: 10pt;
+      
+  }
+  
+  .DefineMYSHeight {
+      height: 80vh;
+      width:100%;
+      
+  }
+  .TextIconImage {
+      float:right;
+  }
+  .IconPadding {
+      padding: 5px;
+  }
+  .ProcessOptions {
+      float:right;
+      font-size: 10pt;
+      margin: 10px;
+  
+  }
+  .RadioButtonAttributes {
+      margin-left:12px;
+      display:inline-block;
+  }
+  .ProcessButtonOptions {
+      border: solid black 0.5px;
+      margin: 5px; 
+      font-weight:600;
+  }
+  .ProcessTitle {
+      font-weight:600;
+      margin-right:25px;
+      display: inline-block;
+  }
+  .MYSBold {
+      font-weight: 600;
+  }
+  .MYSTab {
+      margin-left : 5em;
+  }
+  .RadioButtonText {
+      margin-right:6px;
+  }
+  .MainMenuCSSL {
+      display: inline-block;
+      height: 80vh;
+      width: 740px;
+      position: relative;
+      left: -100px;
+  }
+  .MainMenuCSSR
+  {
+      display: inline-block;
+      height: 80vh;
+      width: 740px;
+      
+  }
+  .OverWorkedFormat {
+      height: 70vh;
+      margin: 30px 0px 0px 30px;
+  }
+  .HelpPicture {
+      height:30vh;
+  }
+  
+  .HelpScroll {
+      overflow:auto;
+      height: 80vh;
+  }
+  .GreenTrafficLight {
+      background-image: url('/static/media/GreenLight.png');
+      background-repeat: no-repeat;
+      list-style-type: none;
+  }
+  .YellowTrafficLight {
+      background-image: url('/static/media/YellowLight.png');
+      background-repeat: no-repeat;
+      list-style-type: none;
+      margin-bottom: -2px;
+  }
+  .RedTrafficLight {
+      background-image: url('/static/media/Redlight.png');
+      list-style-type: none;
+      background-repeat: no-repeat;
+  }
+  .TemplateButton {
+      padding: 1px 2px;
+  }
+  .FolderButton {
+      padding: 6px 5.5px;
+  }
+  
+  .MYSFont {
+      font-family: 'Bungee', cursive;
+      font-size: 1.75rem;
+      padding: 0px;
+  }

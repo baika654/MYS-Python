@@ -1,0 +1,69 @@
+{% extends "mys/layout.html" %}
+{% block title %}
+MYS App
+{% endblock %}
+{% block content %}
+
+
+<div class="DefineMYSHeight">
+    <div class="MYSPageBand">
+
+    </div>
+    <div class="MYSPageMain">
+        <div class="ProcessTitle">Workbooks to compare:</div>
+        <div class="TextBoxBlock">
+            <div class="KeepLeft">Answer Template:</div>
+            <div class="InputTextBox" id="templateFileTextBox"></div>
+            <div class="TextIconImage IconPadding">
+                <!---<img src="/Images/file-excel-alt-256(1).png" align="middle" alt="Excel Icon">-->
+                <input type="file" style="display:none;" id="templateFileHiddenButton" name="templateFilesToUpload" accept=".xls*">
+                <div>
+                    <button id="SelectTemplateButton" class="TemplateButton" type="button"><img src="/static/media/file-excel-alt-256(1).png" align="middle" alt="Excel Icon"></button>
+                </div>
+            </div>
+        </div>
+        <div class="TextBoxBlock">
+            <div class="KeepLeft">Student Files:</div>
+            <div class="InputTextBox" id="studentFileTextBox"></div>
+            <div class="TextIconImage IconPadding">
+                <!---<img  src="/Images/folder-outline-filled.gif" alt="Folder Icon">-->
+                <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UpLoadStudentFiles">
+                
+                        <input type="file" style="display:none;" id="studentFileHiddenButton" name="studentFilesToUpload" accept=".xls*" multiple>
+                        <input type="submit" value="Upload" style="display:none" id="studentFileHiddenSubmit" />
+                    
+                 </form>
+            </div>
+            <div>
+                    <button id="SelectFolderButton" class="FolderButton" type="button"><img src="/static/media/folder-outline-filled.gif" alt="Folder Icon"></button>
+            </div>
+            
+        </div>
+        <div class="ProcessTitle">Progress:</div>
+        <div class="MYSOutputWindow" id="MYSOutputWindowID">
+
+        </div>
+        <div class="ProcessOptions">
+            <div class="ProcessTitle">Processing Options</div>
+            
+            <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="OnProcessOptionChange" class="RadioButtonAttributes">  {% csrf_token %}
+                <div class="RadioButtonAttributes">
+                    <input type="radio" id="all_mode" name="mode" value="all" {% if user.mode == "all" %} checked {% endif %}>
+                    <label for="all">All Sheets</label>
+                    <!--All Sheets  @Html.RadioButtonFor(model => model.Process_Option, "all", new { onclick = "UpdateProcessOption(0);", display = "inline-block;" })-->
+                </div>
+                <div class="RadioButtonAttributes">
+                    <input type="radio" id="highlighted_mode" name="mode" value="highlighted" {% if user.mode == "highlighted" %} checked {% endif %}>
+                    <label for="highlighted">Highlighted Sheets</label>
+                    <!--Highlighted Sheets  @Html.RadioButtonFor(model => model.Process_Option, "highlighted", new { onclick = "UpdateProcessOption(1);", display = "inline-block;" })-->
+                </div>
+
+</form>
+                <button id="ProcessButton" type="button">Process</button>
+        </div>
+    </div>
+    <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"</script>
+</div>
+
+
+{% endblock %}

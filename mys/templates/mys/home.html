@@ -1,0 +1,35 @@
+{% extends "mys/layout.html" %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+
+
+    <div style="display:flex">
+        <!--<div class="MainMenuCSSL">
+
+        <img src="~/Images/OverWorked(4).svg" class="OverWorkedFormat" alt="Folder Icon">
+
+    </div>-->
+    <div class="MainMenuCSSL">
+        {% load static %}
+        <object type="image/svg+xml" data="{% static 'media/OverWorked%284%29.svg' %}" class="OverWorkedFormat">
+            Your browser does not support SVG
+        </object>
+    </div>
+
+
+        <div class="text-center MainMenuCSSR">
+            <h1 class="display-4">Are you spending too much time on student assessment?</h1>
+            <p>
+                MYS (Mark My Spreadsheet) may be the answer to your problem.
+                MYS will compare an answer spreadsheet (TEMPLATE) with
+                your student assignment spreadsheets. It will compare the
+                answers you expect with the answers the student has
+                provided and give you feedback about their work. All the marking is done for you
+                and you can spend you time focusing on teaching.
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

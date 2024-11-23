@@ -1,0 +1,122 @@
+{% extends "mys/layout.html" %}
+{% block title %}
+Help
+{% endblock %}
+{% block content %}
+
+<div class="HelpPageBand">
+
+</div>
+<div class="HelpScroll">
+    <p>
+        <h3>Welcome to MYS</h3>
+        MYS (Mark Your Spreadsheet) was developed by Karl Bailey, Kay Baldock, Farrel Burns and Lee Wannacott for Project One 2019,
+        for our study as part of the SHIFT programme run by the Signal ICT Grad School, Dunedin. Karl set it up so it can be run in
+         a server client configuration
+         <br />
+
+        <h3>What is MYS</h3>
+        MYS will compare an answer spreadsheet (TEMPLATE) with your student assignment spreadsheets.  It will compare the
+        answers you expect with the answers the student has provided and give you feedback about their work. <br />
+
+        <h3>Install MYS</h3>
+        We suggest using a folder/directory that is easily found (e.g. C:\MYS), but please ensure that if you are using a work computer you
+        follow established protocol.  The following files should be downloaded (MYS-V5.exe, MYS ReadMe-V4.pdf, license.txt,
+        template.xlsx).<br />
+        If you wish to create a shortcut to MYS on your Desktop, please link it the file called MYS-V5.exe.<br /><br />
+
+        <h3>Preparation for using MYS</h3>
+        <span class="MYSBold">Template </span> <br />
+        This is a spreadsheet that is <span class="MYSBold">exactly</span> how you require your students to produce their work.  This can be one spreadsheet or
+        multiple sheets within one workbook.  You must use the provided TEMPLATE file with the DETAILS Sheet as the first worksheet
+        of your TEMPLATE.  This sheet will be used by MYS to: <br /><br />
+
+    <p class="MYSTab">1.   keep track of which student is being marked.</p>
+    <br />
+    <p class="MYSTab">2.   provide you feedback about the students’ results.</p>
+    <br />
+
+            If you wish MYS to mark more than one worksheet within one workbook each worksheet in your TEMPLATE must be named and
+            the students’ assignments must use the same names in their workbook.  Any worksheets in a student workbook that are not in the
+            TEMPLATE will not be marked.  Students can use as many of these worksheets as required for their calculations.
+    <br />
+
+            When MYS has marked the assignments, it will return you a copy of each assignment (in a folder named OUTPUT).In these copies
+            the DETAILS sheet will contain a summary count of each student’s results.  You will also receive a spreadsheet named
+            MARKINGSUMMARY.XLSX.  You can then use thesefiles to calculate their final marks.  When you open MARKING SUMMARY
+    <br />
+
+            Note: any amendment you make here will adjust the Final Results spreadsheet.
+    <br />
+
+            If the students highlight any cells in their assignments this same highlighting may appear on the results spreadsheet but it will
+            not have been marked by MYS.
+    <br />
+
+    <span class="MYSBold">Completed Assignment Requirements</span>
+    <br />
+
+
+
+
+
+            You must indicate on the TEMPLATE the answers you want marked.  To do this you must highlight the appropriate cells. Please
+            DO NOT highlight any cells you do not want marked.
+    <br />
+
+            All student assignments must:
+    <br />
+
+    <p class="MYSTab">-&emsp;MYS cannot mark the answers if they are not in the same cells as the original.</p>
+    <br />
+    <p class="MYSTab">
+        -&emsp;DETAILS must contain some student First and Last Names. We have also provided spaces for ID Number and Course
+        in our TEMPLATE.  The infromation in these cells will be used to name each marked spreadsheet and to list the students in the Results Summary.
+    </p>
+    <br />
+    <p class="MYSTab">-&emsp;Assignments files must be saved into one folder (e.g. ASSIGNMENT FOLDER) for MYS to check them.</p>
+    <br />
+
+    <h3>How to run MYS</h3>
+            Double click on the file called MYS-V5.exe (If you have created a shortcut on the desktop, use this).
+    <br />
+    <br />
+
+    <img src="/static/media/FinalGUI.png" align="left" alt="Excel Icon" class="HelpPicture">
+    <div>
+        <p class="MYSTab">-&emsp;1. Select your TEMPLATE file and the folder containing your student assignments.</p><br />
+
+        <p class="MYSTab">-&emsp;2. Indicate if you want highlighted answers only checked, or all numbers within the workbook (excluding DETAILS sheet).</p><br />
+
+        <p class="MYSTab">-&emsp;3. Click PROCESS</p><br />
+    </div>
+
+    <h3>Marking Feedback.</h3>
+    When MYS has marked the assignments, you will receive:
+
+               <ul><li>A copy of each spreadsheet (in the folder called OUTPUT).  All the answers you indicated in the TEMPLATE have been
+               highlighted in these workbooks as listed below: </li>
+               <ul><li>If the answer is marked: </li>
+               <ul class="GreenTrafficLight" ><li>the expected value as indicated in your TEMPLATE</li></ul>
+               <ul class="YellowTrafficLight"><li>an incorrect value but the formula is the same as your TEMPLATE</li></ul>
+               <ul class="RedTrafficLight"><li>neither the expected value nor the formulais the same as your TEMPLATE</li></ul></ul>
+               <li>a summary on each DETAILS sheet totaling the answers as above</li>
+               <li>A file called “MARKING SUMMARY”listing your students and a summary of the answers as above.  There is room both
+                 on the summary and on each DETAILS sheet for you to make any adjustments to these marks.</li>
+               <li><span class="MYSBold">Note:&emsp;</span>when you open. MARKINGSUMMARY.XLXS you need to click the ENABLE CONTENT button for it to link to the
+                 marked spreadsheets.</li></ul>
+
+    <h3>Other Info</h3>
+
+    While we have done all we can to maintain the integrity of the original data, we strongly recommend that you make copies of all
+    spreadsheets (the originals before you run MYS and then the marked result copies and feedback file) to safeguard your
+    academic credibility should any queries be raised about the process.<br /><br />
+
+    <span class="MYSBold">Note:&emsp;</span>MYS will only work on Excel files with the extensions .xlsx, .xlsm, .xltx, or .xltm, with .xlsx being the recommended format.
+    Older version of Excel e.g. .xls files are <span class="MYSBold">not</span> supported.<br /><br />
+
+    <span class="MYSBold">Note:&emsp;</span>If your students enter extraneous data instead of applying formatting (e.g. they enter $45.00 instead of formatting the cell
+    to currency) this will be marked red/incorrect.
+                                                                                                                    </p>
+</div>
+{% endblock %}

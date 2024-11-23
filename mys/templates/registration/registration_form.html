@@ -1,0 +1,79 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+{% block content %}
+<main role="main" class="pb-3">
+            
+    <h1>Register</h1>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <form id="registerForm" method="post" action="/accounts/register/" novalidate="novalidate">
+                <h4>Create a new account.</h4>
+                <hr>
+                <div class="text-danger validation-summary-valid" data-valmsg-summary="true"><ul><li style="display:none"></li>
+    </ul></div>
+                <!--<div class="form-group">
+                    <label for="Input_Username">User Name</label>
+                    <input class="form-control" type="username" data-val="true" data-val-username="The UserName field is not a valid e-mail address." data-val-required="The Username field is required." id="Input_Username" name="Input.UserName" value="">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Input.UserName" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Input_Email">Email</label>
+                    <input class="form-control" type="email" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="The Email field is required." id="Input_Email" name="Input.Email" value="">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Input_Password">Password</label>
+                    <input class="form-control" type="password" data-val="true" data-val-length="The Password must be at least 6 and at max 100 characters long." data-val-length-max="100" data-val-length-min="6" data-val-required="The Password field is required." id="Input_Password" maxlength="100" name="Input.Password">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Input.Password" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Input_ConfirmPassword">Confirm password</label>
+                    <input class="form-control" type="password" data-val="true" data-val-equalto="The password and confirmation password do not match." data-val-equalto-other="*.Password" id="Input_ConfirmPassword" name="Input.ConfirmPassword">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Input.ConfirmPassword" data-valmsg-replace="true"></span>
+                </div>-->
+                <form method='post' action=''>{% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="form-group">
+                        <p>
+                            {% if "first" not in field.label_tag %}
+                                {% if "last" not in field.label_tag %}
+                                    {{ field.label_tag }}<br>
+                                    
+                                        {{ field }}
+                                    
+                                {% endif %}
+                            {% endif %}    
+                            <!--{% if field.help_text %}
+                            <small style="color: grey">{{ field.help_text }}</small>
+                            {% endif %}-->
+                            {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    {% endfor %}
+                    <tr><td></td><td><input type="submit" value="{% trans "Register" %}" /></td>
+                </form>
+            <!--<input name="__RequestVerificationToken" type="hidden" value="CfDJ8MRUbckCEd5Mq1ADK-8uqVU_5Q88FMjR_V5JVSPAvkXYiW1zCA63jEvI57L4NULUJHRFgAsNebBlEwr98qNFXR9J_hxWE2MlyfKZwHDGnIfNpP3k9Swi73dbXwIPZcP2HDYirbI1itAV1vhbrHJXuDE"></form>-->
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h4>Use another service to register.</h4>
+                <hr>
+                        <div>
+                            <p>
+                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                for details on setting up this ASP.NET application to support logging in via external services.
+                            </p>
+                        </div>
+            </section>
+        </div>
+    </div>
+    
+    
+</main>
+
+{% endblock %}
