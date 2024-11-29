@@ -4,16 +4,28 @@ from openpyxl.styles import Color, PatternFill, Font, Border
 from openpyxl.styles import colors
 import openpyxl
 import time
+import zipfile
 import datetime
+from django.conf import settings
 from mys.templateAnswerClassFile import templateAnswerClass
 from mys.WorkbookProcessor import Processor
 from mys.getAnswerArrays import flattenedAnswers
 import shutil
 from mys.monitor import Monitor
 import mys.marking  
+from mys.consumers import ChatConsumer
+
+
+def progPrint(*args):
+    textString =""
+    for x in args:
+        textString = textString + x
+    print("Textstring is: ", textString)
+    localConsumer = ChatConsumer.getChannelToBrowser()
+    localConsumer.sendMessage(textString)
 
 class setupMain():
-    def __init__(self, template_file, studentFiles, option ):
+    def __init__(self, template_file, studentFiles, request, option ):
         
         # Allowed file types
         self.filetypes = [('All files', '.*'), ("Excel files", ".xl*")]
@@ -21,6 +33,7 @@ class setupMain():
         self.template = template_file
         self.folder = studentFiles
         self.option = option
+        self.request = request
         #Setup all the elements in the mainform.
     
     
@@ -53,6 +66,7 @@ class setupMain():
                     os.mkdir(output_folder)
                 except PermissionError:
                     print("Please close output folder and any Excel files.")
+                    progPrint("Please close output folder and any Excel files.")
             # go through all files
             
             flattenedTemplates = flattenedAnswers(template_wb, self.option)
@@ -65,6 +79,7 @@ class setupMain():
                 # only work with them in xl* files
                 if ".xl" in student_file:
                     print("end", "Processing "+ student_file + "\n")
+                    progPrint("end", "Processing "+ student_file + "\n")
                    
                     # begin deconstruction of workbooks, then sheets, then comparisons
                     WorkbookManager.process_workbooks(student_file)
@@ -73,8 +88,9 @@ class setupMain():
             # print out time taken
             elapsed_time = time.time() - start_time
             print( "Processing required {} seconds".format(elapsed_time))
+            progPrint( "Processing required {} seconds".format(elapsed_time))
             # show folder to user
-            os.startfile(next_folder)
+            #os.startfile(next_folder)
             liveLinkPath = os.path.join(self.folder ,"Output")
             # LiveLink marking will fail if output folder is empty (all files rejected)
             # output_empty returns a boolean after checking output folder
@@ -82,16 +98,32 @@ class setupMain():
             output_empty = FileMonitor.output_folder_empty(liveLinkPath)
             if output_empty:
                 print("There are problems with all files - processing aborted. Please check output window for errors.")
-                
+                progPrint("There are problems with all files - processing aborted. Please check output window for errors.")
                 
                 self.submit.config(state="normal")
             
             else:
                 print("Live linking output files to summary sheet.\n")
+                progPrint("Live linking output files to summary sheet.\n")
                 mys.marking.liveLink(liveLinkPath)
-            os.startfile(next_folder)    
-        
-                    
+            #os.startfile(next_folder)
+            progPrint("Preparing to zip up marked results.\n")        
+            #    
+            #zip file
+            user_dir_path_name = os.path.join(settings.MEDIA_ROOT,str(self.request.user.uuid))
+            results_folder = os.path.join(user_dir_path_name , "results.zip")
+            if os.path.exists(results_folder):
+               os.remove(results_folder)
+               print("Previous output file removed")
+            zf = zipfile.ZipFile(results_folder, "w")
+            for dirname, subdirs, files in os.walk(next_folder):
+                zf.write(dirname)
+                for filename in files:
+                    zf.write(os.path.join(dirname, filename))
+            zf.close()
+            progPrint("Results have been written to zip archive.\n")
+            os.chdir(user_dir_path_name)
+            progPrint("***ENABLE_BUTTON***")        
  
 
 

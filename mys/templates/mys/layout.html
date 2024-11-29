@@ -96,9 +96,11 @@
     </footer>
     <script src="{% static '/lib/jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static '/lib/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="{% static '/js/site.js' %}"></script>
-    <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"</script>
+    <script type="text/javascript"> 
+    window.CSRF_TOKEN = "{{ csrf_token }}"
+    
+    </script>
     <!--@RenderSection("Scripts", required: false)-->
 </body>
 </html>

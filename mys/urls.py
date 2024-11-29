@@ -19,9 +19,10 @@ urlpatterns = [
     path("log/", views.log_message, name="log"),
     path("MYSApp/FileUpload/", views.FileUpload, name="File_Upload"),
     path("MYSApp/ProcessOptionChange/", views.ProcessOptionChange, name="Process_Options_Change"),
+    path("MYSApp/download_my_results/", views.download_results, name="results"),
     path('accounts/', include('django.contrib.auth.urls')),
     path("accounts/login/", views.login_page, name="login"),
-    path("accounts/register/", views.register, name="register"),
+    path("accounts/register/", views.register, name="register"),   
     
 ]
 

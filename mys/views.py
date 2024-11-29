@@ -3,6 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 import re
 import json
+import time, threading
+import psutil
 from datetime import datetime
 from django.http import HttpResponse
 from mys.forms import LogMessageForm
@@ -19,7 +21,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from mys.forms import SignUpForm
 from .models import CustomUser
-from mys.MYSMain import setupMain
+from mys.MYSMain import setupMain, progPrint
+#from wsgiref.util import 
+
+
 
 
 
@@ -68,6 +73,16 @@ def FileUpload(request):
     studentfiles_path_name = os.path.join(user_dir_path_name, "studentfiles")
     templatefile_path_name = os.path.join(user_dir_path_name, "templatefile")
     # Check if user directory exists. Create directory if not present
+    #print("Files still open from previous run")
+    #for proc in psutil.process_iter():
+    #    print(proc.open_files())
+
+    for root, dirs, files in os.walk(user_dir_path_name, topdown=False):
+        for f in files:
+            print("File to delete=", f)
+            
+        for d in dirs:
+            print("Directory to delete=", d)    
     if os.path.exists(user_dir_path_name):
         for filename in os.listdir(user_dir_path_name):
             file_path = os.path.join(user_dir_path_name, filename)
@@ -78,15 +93,17 @@ def FileUpload(request):
                     shutil.rmtree(file_path)
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
+                progPrint('Failed to delete %s. Reason: %s' % (file_path, e))
                 return HttpResponse(status=500)
     else:
         try:
             os.mkdir(user_dir_path_name)
         except OSError:
             print ("Creation of the directory %s failed" % user_dir_path_name)
+            progPrint ("Creation of the directory %s failed" % user_dir_path_name)
             return HttpResponse(status=500)
         else:
-            print ("Successfully created the directory %s " % user_dir_path_name)
+            print ("Successfully created the directory %s " % user_dir_path_name)           
             
 
     # Check if studentfiles directory exists. Create directory if not present
@@ -95,10 +112,11 @@ def FileUpload(request):
             os.mkdir(studentfiles_path_name)
         except OSError:
             print ("Creation of the directory %s failed" % studentfiles_path_name)
+            progPrint ("Creation of the directory %s failed" % studentfiles_path_name)
             return HttpResponse(status=500)
         else:
             print ("Successfully created the directory %s " % studentfiles_path_name)
-           
+            
 
     # Check if templatefile directory exists. Create directory if not present
     if not os.path.exists(templatefile_path_name):
@@ -115,6 +133,7 @@ def FileUpload(request):
     # Template File First.
     filenameoftemplate, file_ext = os.path.splitext(str(TemplateFile))
     print("Uploading file " + str(TemplateFile))
+    progPrint("Uploading file " + str(TemplateFile))
     temp_template_file = "templatefile" + file_ext
     with default_storage.open(os.path.join(templatefile_path_name, temp_template_file), 'wb+') as destination:
         for chunk in TemplateFile.chunks():
@@ -128,6 +147,7 @@ def FileUpload(request):
     for StudentFile in student_files_list:
         filenameofstudent, file_ext = os.path.splitext(str(StudentFile))
         print("Uploading file " + str(StudentFile))
+        progPrint("Uploading file " + str(StudentFile))
         temp_student_file = "studentfile" + str(x+1)  + file_ext
         with default_storage.open(os.path.join(studentfiles_path_name, temp_student_file), 'wb+') as destination:
             #for chunk in StudentFile.chunks():
@@ -139,9 +159,9 @@ def FileUpload(request):
     #    name = request.FILES[filename].name
     #    print(name)
     database_User = CustomUser.objects.get(username= request.user.username)
-    MainProcessingObject = setupMain(os.path.join(templatefile_path_name, temp_template_file), studentfiles_path_name, database_User.mode)
+    MainProcessingObject = setupMain(os.path.join(templatefile_path_name, temp_template_file), studentfiles_path_name, request, database_User.mode)
     MainProcessingObject.process()
-    return 
+    return HttpResponse(status = 200)
 
 def login_page(request):
     return render(request, "registration/login.html")
@@ -198,3 +218,16 @@ def log_message(request):
             return redirect("home")
     else:
         return render(request, "mys/log_message.html", {"form": form})
+
+@login_required
+def download_results(request):
+    user_dir_path_name = os.path.join(settings.MEDIA_ROOT,str(request.user.uuid))
+    filename = os.path.join(user_dir_path_name , "results.zip")
+    #filename = 'whatever_in_absolute_path__or_not.pdf'
+    #content = FileWrapper(filename)
+    #content = open(filename, 'r')
+    progPrint("***DISABLE_BUTTON***")
+    response = HttpResponse(open(filename, 'rb'), content_type='application/force-download')
+    response['Content-Length'] = os.path.getsize(filename)
+    response['Content-Disposition'] = 'attachment; filename=%s' % 'results.zip'
+    return response

@@ -60,9 +60,55 @@ MYS App
 
 </form>
                 <button id="ProcessButton" type="button">Process</button>
+                <input  disabled="true" type="button" id="download_button" value="Download" onclick="window.open('download_my_results')">
         </div>
     </div>
-    <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"</script>
+    <script type="text/javascript">
+    window.CSRF_TOKEN = "{{ csrf_token }}"
+    const chatSocket = new WebSocket('ws://' + window.location.host + '/MYSApp/progressInfo/');
+    //console.log("Location is ",  window.location.host);
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const message = data['message'];
+        console.log("Message received: ", message);
+        if (message.search(/\*\*\*ENABLE_BUTTON\*\*\*/g)!=-1)
+        {
+            var downloadButton = /** @type {HTMLInputElement} */ (document.getElementById("download_button"));
+            downloadButton.disabled = false;
+        }
+        else if (message.search(/\*\*\*DISABLE_BUTTON\*\*\*/g)!=-1)
+        {
+            var downloadButton = /** @type {HTMLInputElement} */ (document.getElementById("download_button"));
+            downloadButton.disabled = true;
+        }
+        else 
+        {
+            const outputElement = document.getElementsByClassName("MYSOutputWindow")[0];
+            const textMessageElement = document.createTextNode(message);
+            var para = document.createElement("p");
+            para.style.margin=0;
+            para.appendChild(textMessageElement);
+            outputElement.appendChild(para);
+        }
+        // Handle incoming message
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    // Test Send message to server
+    // function sendMessage(message) {
+    //     chatSocket.send(JSON.stringify({
+    //         'message': message
+    //     }));
+    // }
+
+    // myTimer = setTimeout(function(){
+    //     sendMessage("Test");
+    //     }, 2000);
+    
+    </script>
 </div>
 
 

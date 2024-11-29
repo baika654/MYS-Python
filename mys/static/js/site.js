@@ -225,7 +225,7 @@ function uploadFiles(inputId , inputId2) {
             type: "POST",
             success: function () {
                 //alert("Files Uploaded!");
-                addDownloadButton();
+                //addDownloadButton();
                 //$("#GetZipFileLink").click();
             }
         }
@@ -235,31 +235,31 @@ function uploadFiles(inputId , inputId2) {
 }
 
 
-function a_onClick() {
-    alert('a_onClick');
-}
+// function a_onClick() {
+//     alert('a_onClick');
+// }
 
-function addDownloadButton() {
-    var downloadZipButton = document.createElement("button");
-    downloadZipButton.innerHTML = "Click to download results zip file";
-    downloadZipButton.style.margin = "10px";
-    downloadZipButton.style.height = "64px";
-    downloadZipButton.style.width = "150px";
-    downloadZipButton.id = "DownloadButtonId";
-    //downloadZipButton.style.display = "";
-    downloadZipButton.onclick = function () {
-        window.open('/Home/GetZipFile');
+// function addDownloadButton() {
+//     var downloadZipButton = document.createElement("button");
+//     downloadZipButton.innerHTML = "Click to download results zip file";
+//     downloadZipButton.style.margin = "10px";
+//     downloadZipButton.style.height = "64px";
+//     downloadZipButton.style.width = "150px";
+//     downloadZipButton.id = "DownloadButtonId";
+//     //downloadZipButton.style.display = "";
+//     downloadZipButton.onclick = function () {
+//         window.open('/Home/GetZipFile');
 
-    }
+//     }
 
-    // 2. Append somewhere
-    var body = document.getElementById("MYSOutputWindowID");
-    body.appendChild(downloadZipButton);
-    document.getElementById("MYSOutputWindowID").scrollTo(0, document.getElementById("MYSOutputWindowID").scrollHeight);
+//     // 2. Append somewhere
+//     var body = document.getElementById("MYSOutputWindowID");
+//     body.appendChild(downloadZipButton);
+//     document.getElementById("MYSOutputWindowID").scrollTo(0, document.getElementById("MYSOutputWindowID").scrollHeight);
 
     
     
-}
+// }
 
 
 
