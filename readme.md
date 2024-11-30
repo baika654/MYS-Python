@@ -10,7 +10,8 @@ $ cd MYS-Python
 ```
 
 
-Then install the dependencies:
+Then install the dependencies. To make sure the following command works properly,
+you need to be using Python Ver 3.7.3 or greater:
 
 ```sh
 $ pip install -r requirements.txt
